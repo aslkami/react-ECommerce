@@ -3,12 +3,14 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/homepage/homepage.compontent";
 import "./pages/homepage/homepage.styles.scss";
+import ShopPage from "./pages/shop/shop.compontent";
 
 function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/shop" component={ShopPage} />
       </Switch>
     </div>
   );
