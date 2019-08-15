@@ -13,7 +13,8 @@ const userReducer = (state = initialState, { type, payload }) => {
     case UserActionTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: { ...payload }
+        // currentUser: {...payload}
+        currentUser: payload
       };
 
     default:
