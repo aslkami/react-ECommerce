@@ -43,3 +43,7 @@
 4. dispatch 当使用 connect 的时候 默认传递， 如果简单的更改状态， 可以直接解构然后执行 方法，不必再写 mapDispatchToProps，详情见 cart-dropdown.component.jsx
 
 5. UTF-8 Dingbats
+6. heroku create xxx --buildpack https://github.com/mars/create-react-app-buildpack.git
+   > https://github.com/mars/create-react-app-buildpack
+
+heroku create farereact --buildpack https://github.com/mars/create-react-app-buildpack.git
