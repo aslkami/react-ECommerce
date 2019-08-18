@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { ReactComponent as Logo } from "../../assets/images/crown.svg";
 import { auth } from "../../firebase/firebase.utils";
@@ -8,34 +7,36 @@ import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import ShopIcon from "./../cart-icon/cart-icon.component";
-import "./header.styles.scss";
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionDiv,
+  OptionLink,
+  OptionsContainer
+} from "./header.styles";
+
+//  <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink> 这个写法等价于下面
+//  <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
 
 const Header = ({ currentUser, hidden }) => {
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          shop
-        </Link>
-        <Link className="option" to="/shop">
-          contact
-        </Link>
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">shop</OptionLink>
+        <OptionLink to="/shop">contact</OptionLink>
+
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
-            SIGN OUT
-          </div>
+          <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
         ) : (
-          <Link className="option" to="/sign">
-            Sign In
-          </Link>
+          <OptionLink to="/sign">Sign In</OptionLink>
         )}
         <ShopIcon />
-      </div>
+      </OptionsContainer>
       {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 

@@ -47,3 +47,11 @@
    > https://github.com/mars/create-react-app-buildpack
 
 heroku create farereact --buildpack https://github.com/mars/create-react-app-buildpack.git
+
+7. npm install grpc --verbose
+8. --registry=https://registry.npm.taobao.org
+
+#### Questions
+
+1. reselect 的原理是保存一份在内存，如果内存有则不在渲染页面, 那么为何 我更改了一个状态 另一个不同模块的状态也会更改
+2. redux-persist 为什么会持久化所有 redux 数据

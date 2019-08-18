@@ -12,11 +12,10 @@ const config = {
   appId: "1:173396173325:web:b8f159d5d4223c49"
 };
 
+// 创建登陆账户
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
-
-  const firestore = firebase.firestore();
-  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const userRef = firestore.doc(`users/${userAuth.uid}`); // 查找是否已存在，无论存在与否都返回一个 对象引用
   const snapShot = await userRef.get();
 
   if (!snapShot.exist) {
@@ -38,10 +37,42 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+// 通过代码 给 firebase 添加数据 否则需要再 firebase 添加（比较麻烦）
+export const addCollectionAndDocument = async (collectionKey, objectToAdd) => {
+  const firestore = firebase.firestore();
+  const collectionRef = firestore.collection(collectionKey); // 如果找不到则  创建一个集合
+  // const documentRef = collectionRef.doc();
+
+  const batch = firestore.batch();
+  objectToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc(); // 自动创建空文档
+    batch.set(newDocRef, obj); // batch: 批量， 批量生成空文档，并添加数据
+  });
+
+  return await batch.commit(); // 提交的事物， 返回 promise， 成功返回message null
+};
+
+export const convertCollectsSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+    return {
+      id: doc.id,
+      routeName: encodeURI(title.toLowerCase()),
+      title,
+      items
+    };
+  });
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
-export const filestore = firebase.firestore();
+export const firestore = firebase.firestore(); // 因为 createUserProfileDocument 是函数表达式， 所以变量作用域提升优先于 函数表达式， 所以可以获取 firestore
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
