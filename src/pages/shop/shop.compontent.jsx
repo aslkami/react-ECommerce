@@ -1,18 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
-import {
-  selectIsCollectionFetching,
-  selectIsCollectionsLoaded
-} from "../../redux/shop/shop.selectors";
-import CollectionPage from "../collection/collection.component";
-import CollectionsOverview from "./../../components/collection-overview/collection-overview.component";
-import WithSpinner from "./../../components/with-spinner/with-spinner";
+import CollectionOverviewContainer from "./../../components/collection-overview/collection-overview.container";
 import { fetchCollectionsStartAsync } from "./../../redux/shop/shop.ations";
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+import CollectionPageContainer from "./../collection/collection.container";
 
 class ShopPage extends React.Component {
   componentDidMount() {
@@ -27,41 +18,22 @@ class ShopPage extends React.Component {
   }
 
   render() {
-    const {
-      match,
-      selectIsCollectionFetching,
-      selectIsCollectionsLoaded
-    } = this.props;
+    const { match } = this.props;
     return (
       <div className="shop-page">
         <Route
           exact
           path={`${match.path}`}
-          render={props => (
-            <CollectionsOverviewWithSpinner
-              isLoading={selectIsCollectionFetching}
-              {...props}
-            />
-          )}
+          component={CollectionOverviewContainer}
         />
         <Route
           path={`${match.path}/:collectionId`}
-          render={props => (
-            <CollectionPageWithSpinner
-              isLoading={!selectIsCollectionsLoaded}
-              {...props}
-            />
-          )}
+          component={CollectionPageContainer}
         />
       </div>
     );
   }
 }
-
-const mapStateToProps = createStructuredSelector({
-  selectIsCollectionFetching: selectIsCollectionFetching,
-  selectIsCollectionsLoaded: selectIsCollectionsLoaded
-});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -70,6 +42,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(ShopPage);

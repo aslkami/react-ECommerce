@@ -55,6 +55,16 @@
 
 8. redux-thunk, redux 的一个中间件， 可以使得 action 返回方法 而不是 对象， 并且可以在方法里进行数据获取，这样把获取数据的代码放在 action 里可以使得组件稍微整洁一点
 
+9. compose 的作用就是解锁繁杂的写法 如 `withRouter(connect(mapStateToProps, mapDispatchToProps)(WithSpinner(xxxx)))`
+   ```javascript
+   import { compose } from "redux";
+   compose(
+     withRouter,
+     connect(mapStateToProps),
+     WithSpinner
+   )(xxxx);
+   ```
+
 #### Questions
 
 1. reselect 的原理是保存一份在内存，如果内存有则不在渲染页面, 那么为何 我更改了一个状态 另一个不同模块的状态也会更改
