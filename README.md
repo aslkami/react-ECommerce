@@ -46,7 +46,8 @@
 6. heroku create xxx --buildpack https://github.com/mars/create-react-app-buildpack.git
    > https://github.com/mars/create-react-app-buildpack
 
-heroku create farereact --buildpack https://github.com/mars/create-react-app-buildpack.git
+heroku create fatereact --buildpack https://github.com/mars/create-react-app-buildpack.git
+heroku create fatereact --buildpack mars/create-react-app
 
 7. npm install grpc --verbose
 8. --registry=https://registry.npm.taobao.org
