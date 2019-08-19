@@ -48,17 +48,17 @@
 
 - heroku create fatereact --buildpack https://github.com/mars/create-react-app-buildpack.git
 - heroku create fatereact --buildpack mars/create-react-app
-
 - heroku git:remote -a fatereact
 - set git remote heroku to https://git.heroku.com/fatereact.git
 
-7. npm install grpc --verbose
-8. --registry=https://registry.npm.taobao.org~
+7. npm install grpc --verbose --registry=https://registry.npm.taobao.org
+
+8. redux-thunk, redux 的一个中间件， 可以使得 action 返回方法 而不是 对象， 并且可以在方法里进行数据获取，这样把获取数据的代码放在 action 里可以使得组件稍微整洁一点
 
 #### Questions
 
 1. reselect 的原理是保存一份在内存，如果内存有则不在渲染页面, 那么为何 我更改了一个状态 另一个不同模块的状态也会更改
-2. redux-persist 为什么会持久化所有 redux 数据
+2. redux-persist 为什么会持久化所有 redux 数据 （因为我把 whitelist， 写成 whiteList, "L"）
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
