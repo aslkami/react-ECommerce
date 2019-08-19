@@ -9,7 +9,7 @@ import userReducer from "./user/user.reducer";
 const persistConfig = {
   key: "root", // 持久化挂在的对象， id="root" ,  我猜的
   storage, // localStorage的方式
-  whiteList: ["cart"] // 需要持久化的模块
+  whitelist: ["cart"] // 需要持久化的模块
 };
 
 // export default combineReducers({
