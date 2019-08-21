@@ -21,3 +21,8 @@ export const clearCartItem = payload => ({
   type: CartActionTypes.CLEAR_CART_ITEM,
   payload
 });
+
+// 退出时清空购物车
+export const clearCart = () => ({
+  type: CartActionTypes.CLEAR_CART
+});

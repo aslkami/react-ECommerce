@@ -69,15 +69,26 @@ export const convertCollectsSnapshotToMap = collections => {
   }, {});
 };
 
+// 模拟后端请求 用户 数据
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe(); // 不知道啥用处
+      console.log(userAuth);
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
-export const firestore = firebase.firestore(); // 因为 createUserProfileDocument 是函数表达式， 所以变量作用域提升优先于 函数表达式， 所以可以获取 firestore
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+export const firestore = firebase.firestore(); // 我猜是因为 createUserProfileDocument 是函数表达式， 所以变量作用域提升优先于 函数表达式， 所以可以获取 firestore
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider);
+  auth.signInWithPopup(googleProvider);
 };
 
 export default firebase;

@@ -1,5 +1,9 @@
 import React from "react";
-import { auth, signInWithGoogle } from "./../../firebase/firebase.utils";
+import { connect } from "react-redux";
+import {
+  emailSignInStart,
+  googleSignInStart
+} from "../../redux/user/user.actions";
 import CustomButton from "./../custom-button/custom-buttom.component";
 import FormIpnut from "./../form-input/form-input.component";
 import "./sign-in.styles.scss";
@@ -15,13 +19,9 @@ class SignIn extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    try {
-      const { email, password } = this.state;
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: "", password: "" });
-    } catch (error) {
-      console.log(error);
-    }
+    const { email, password } = this.state;
+    const { signWithEmail } = this.props;
+    signWithEmail(email, password);
   };
 
   handleChange = event => {
@@ -31,6 +31,7 @@ class SignIn extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { signInWithGoogle } = this.props;
     return (
       <div className="sign-in">
         <h2 className="title">I already have an account!</h2>
@@ -53,7 +54,11 @@ class SignIn extends React.Component {
 
           <div className="buttons">
             <CustomButton type="submit">Sign In</CustomButton>
-            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+            <CustomButton
+              type="button"
+              onClick={signInWithGoogle}
+              isGoogleSignIn
+            >
               Sign In With Google
             </CustomButton>
           </div>
@@ -63,4 +68,13 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+const mapDisptachToProps = dispatch => ({
+  signInWithGoogle: () => dispatch(googleSignInStart()),
+  signWithEmail: (email, password) =>
+    dispatch(emailSignInStart({ email, password })) // payload 接收的 是对象
+});
+
+export default connect(
+  null,
+  mapDisptachToProps
+)(SignIn);

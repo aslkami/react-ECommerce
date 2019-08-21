@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
+import { fetchCollectionsStart } from "../../redux/shop/shop.ations";
 import CollectionOverviewContainer from "./../../components/collection-overview/collection-overview.container";
-import { fetchCollectionsStartAsync } from "./../../redux/shop/shop.ations";
 import CollectionPageContainer from "./../collection/collection.container";
 
 class ShopPage extends React.Component {
   componentDidMount() {
-    const { fetchCollectionsStartAsync } = this.props;
-    fetchCollectionsStartAsync();
+    const { fetchCollectionsStart } = this.props;
+    fetchCollectionsStart();
 
     // collectionRef.onSnapshot(snapshot => {
     //   const collectionsMap = convertCollectsSnapshotToMap(snapshot);
@@ -37,7 +37,7 @@ class ShopPage extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+    fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
   };
 };
 
