@@ -1,25 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { signUpStart } from "../../redux/user/user.actions";
 import CustomButton from "./../custom-button/custom-buttom.component";
 import FormIpnut from "./../form-input/form-input.component";
 import "./sign-up.styles.scss";
 
-class SignUp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      confirmpassword: "",
-      displayName: ""
-    };
-  }
+const SignUp = ({ signUp }) => {
+  const [userCredentials, setUserCredentials] = useState({
+    email: "",
+    password: "",
+    confirmpassword: "",
+    displayName: ""
+  });
 
-  handleSubmit = async event => {
+  const { email, password, confirmpassword, displayName } = userCredentials;
+
+  const handleSubmit = async event => {
     event.preventDefault();
-    const { signUp } = this.props;
-    const { displayName, email, password, confirmpassword } = this.state;
     if (password !== confirmpassword) {
       alert("Password don't match!");
       return;
@@ -28,58 +25,55 @@ class SignUp extends React.Component {
     signUp(displayName, email, password);
   };
 
-  handleChange = event => {
+  const handleChange = event => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  render() {
-    const { displayName, email, password, confirmpassword } = this.state;
-    return (
-      <div className="sign-up">
-        <h2 className="title">I don't have an account!</h2>
-        <span>Sign up with your email and password</span>
-        <form onSubmit={this.handleSubmit}>
-          <FormIpnut
-            name="displayName"
-            type="text"
-            label="DisplayName"
-            value={displayName}
-            handleChange={this.handleChange}
-          />
-          <FormIpnut
-            name="email"
-            type="email"
-            label="Email"
-            value={email}
-            handleChange={this.handleChange}
-          />
-          <FormIpnut
-            name="password"
-            type="password"
-            label="Password"
-            value={password}
-            handleChange={this.handleChange}
-          />
-          <FormIpnut
-            name="confirmpassword"
-            type="password"
-            label="Confirmpassword"
-            value={confirmpassword}
-            handleChange={this.handleChange}
-          />
+  return (
+    <div className="sign-up">
+      <h2 className="title">I don't have an account!</h2>
+      <span>Sign up with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormIpnut
+          name="displayName"
+          type="text"
+          label="DisplayName"
+          value={displayName}
+          handleChange={handleChange}
+        />
+        <FormIpnut
+          name="email"
+          type="email"
+          label="Email"
+          value={email}
+          handleChange={handleChange}
+        />
+        <FormIpnut
+          name="password"
+          type="password"
+          label="Password"
+          value={password}
+          handleChange={handleChange}
+        />
+        <FormIpnut
+          name="confirmpassword"
+          type="password"
+          label="Confirmpassword"
+          value={confirmpassword}
+          handleChange={handleChange}
+        />
 
-          <div className="buttons">
-            <CustomButton type="submit">Sign up</CustomButton>
-            {/* <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+        <div className="buttons">
+          <CustomButton type="submit">Sign up</CustomButton>
+          {/* <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
               Sign In With Google
             </CustomButton> */}
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+        </div>
+      </form>
+    </div>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   signUp: (displayName, email, password) =>
