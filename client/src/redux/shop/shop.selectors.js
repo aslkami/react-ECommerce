@@ -13,7 +13,7 @@ export const selectShop = state => state.shop;
 export const selectCollections = createSelector(
   [selectShop],
   shop => {
-    console.log(shop.collection);
+    // console.log(shop.collection);
     return shop.collections;
   }
 );

@@ -50,6 +50,7 @@
 - heroku create fatereact --buildpack mars/create-react-app
 - heroku git:remote -a fatereact
 - set git remote heroku to https://git.heroku.com/fatereact.git
+- heroku config:set STRIPE_SECRET_KEY=sk_test_1FF4pVzdQ7Zt5jYoCr9HjJ9P00QzmXH5l9
 
 7. npm install grpc --verbose --registry=https://registry.npm.taobao.org
 
