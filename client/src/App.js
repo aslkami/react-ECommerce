@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import "./App.css";
+// import "./App.css";
 import Header from "./components/header/header.component";
+import "./global.styles";
+import { GlobalStyle } from "./global.styles";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import HomePage from "./pages/homepage/homepage.compontent";
 import "./pages/homepage/homepage.styles.scss";
@@ -43,6 +45,7 @@ const App = ({ currentUser, checkUserSession }) => {
 
   return (
     <div>
+      <GlobalStyle></GlobalStyle>
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
