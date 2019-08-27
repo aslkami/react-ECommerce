@@ -40,7 +40,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
 // });
 
 const mapStateToProps = state => {
-  console.log("和存储的属性不一样时，才重新计算渲染页面");
+  // console.log("和存储的属性不一样时，才重新计算渲染页面");
   return {
     cartItems: selectCartItems(state)
   };

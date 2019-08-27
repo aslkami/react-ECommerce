@@ -1,18 +1,26 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 // import "./App.css";
 import Header from "./components/header/header.component";
+import Spinner from "./components/spinner/spinner.component";
 import "./global.styles";
 import { GlobalStyle } from "./global.styles";
-import CheckoutPage from "./pages/checkout/checkout.component";
+// import CheckoutPage from "./pages/checkout/checkout.component";
 import HomePage from "./pages/homepage/homepage.compontent";
 import "./pages/homepage/homepage.styles.scss";
-import ShopPage from "./pages/shop/shop.compontent";
-import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+// import ShopPage from "./pages/shop/shop.compontent";
+// import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { checkUserSession } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+// const HomePage = lazy(() => import("./pages/homepage/homepage.compontent"));
+const ShopPage = lazy(() => import("./pages/shop/shop.compontent"));
+const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
+const SignInAndSignUpPage = lazy(() =>
+  import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component")
+);
 
 const App = ({ currentUser, checkUserSession }) => {
   // 如果不传第二个参数， 每次登录登出 都会执行
@@ -45,20 +53,24 @@ const App = ({ currentUser, checkUserSession }) => {
 
   return (
     <div>
-      <GlobalStyle></GlobalStyle>
+      <GlobalStyle />
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route exact path="/checkout" component={CheckoutPage} />
-        {/* <Route exact path="/sign" component={SignInAndSignUpPage} /> */}
-        <Route
-          exact
-          path="/sign"
-          render={() =>
-            currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
-          }
-        />
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/shop" component={ShopPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            {/* <Route exact path="/sign" component={SignInAndSignUpPage} /> */}
+            <Route
+              exact
+              path="/sign"
+              render={() =>
+                currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+              }
+            />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </div>
   );

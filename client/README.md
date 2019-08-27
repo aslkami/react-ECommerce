@@ -2,7 +2,7 @@
 
 1. withRouter, 给非路由组件传递 match，history，location 参数
 
-- 不用在子组件传递属性，只需在子组件引入`withRouter`并导出的时候 `withRouter(component)`
+   - 不用在子组件传递属性，只需在子组件引入`withRouter`并导出的时候 `withRouter(component)`
 
 2. firbase/filestore
 
@@ -44,19 +44,21 @@
 
 5. UTF-8 Dingbats
 6. heroku create xxx --buildpack https://github.com/mars/create-react-app-buildpack.git
+
    > https://github.com/mars/create-react-app-buildpack
 
-- heroku create fatereact --buildpack https://github.com/mars/create-react-app-buildpack.git
-- heroku create fatereact --buildpack mars/create-react-app
-- heroku git:remote -a fatereact
-- set git remote heroku to https://git.heroku.com/fatereact.git
-- heroku config:set STRIPE_SECRET_KEY=sk_test_1FF4pVzdQ7Zt5jYoCr9HjJ9P00QzmXH5l9
+   - heroku create fatereact --buildpack https://github.com/mars/create-react-app-buildpack.git
+   - heroku create fatereact --buildpack mars/create-react-app
+   - heroku git:remote -a fatereact
+   - set git remote heroku to https://git.heroku.com/fatereact.git
+   - heroku config:set STRIPE_SECRET_KEY=sk_test_1FF4pVzdQ7Zt5jYoCr9HjJ9P00QzmXH5l9
 
 7. npm install grpc --verbose --registry=https://registry.npm.taobao.org
 
 8. redux-thunk, redux 的一个中间件， 可以使得 action 返回方法 而不是 对象， 并且可以在方法里进行数据获取，这样把获取数据的代码放在 action 里可以使得组件稍微整洁一点
 
 9. compose 的作用就是解锁繁杂的写法 如 `withRouter(connect(mapStateToProps, mapDispatchToProps)(WithSpinner(xxxx)))`
+
    ```javascript
    import { compose } from "redux";
    compose(
@@ -65,6 +67,10 @@
      WithSpinner
    )(xxxx);
    ```
+
+10. 常用的 hooks， `useState, useContext, useReduce, useMemo, useCallback`
+    - `useCallback`, 场景如：添加进入数组的时候，未改变的数组项则不会添加进数组，带参数的时候需要传入依赖项
+    - `useMemo`, 和 reselect 类似， 通常用于 缓存函数的返回值
 
 #### Questions
 
