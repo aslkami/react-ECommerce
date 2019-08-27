@@ -1,7 +1,7 @@
 {
   "name": "my-server",
   "version": "1.0.0",
-  "engine": {
+  "engines": {
     "node": "12.2.0",
     "npm": "6.10.3"
   },
