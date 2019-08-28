@@ -21,10 +21,16 @@ app.use(cors());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 
+  app.get("/service-worker.js", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
+  });
+
   app.get("*", function(req, res) {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
+
+// console.log(path.resolve(__dirname, "..", "build", "service-worker.js"));
 
 app.listen(port, error => {
   if (error) throw error;
@@ -46,9 +52,3 @@ app.post("/payment", (req, res) => {
     }
   });
 });
-
-app.get("/service-worker.js", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "service-worker.js"));
-});
-
-// console.log(path.resolve(__dirname, "client", "build", "service-worker.js"));
